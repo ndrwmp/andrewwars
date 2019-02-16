@@ -1,0 +1,76 @@
+/* style the terrain */
+
+/* default color is land (green) */
+.board--square {
+  background-color: rgb(1, 190, 1);
+}
+
+/* water */
+.row1 {
+  background-color: blue;
+}
+
+.row10 {
+  background-color: blue;
+}
+
+.col1 {
+  background-color: blue;
+}
+
+.col12 {
+  background-color: blue;
+}
+
+/* mountains */
+.row5.col5 {
+  background-color: burlywood;
+}
+
+.row5.col6 {
+  background-color: burlywood;
+}
+
+.row5.col7 {
+  background-color: burlywood;
+}
+
+.row6.col6 {
+  background-color: burlywood;
+}
+
+.row6.col7 {
+  background-color: burlywood;
+}
+
+.row6.col8 {
+  background-color: burlywood;
+}
+
+/* player one's buildings*/
+
+.row8.col2 {
+  background-color: blueviolet;
+}
+
+.row9.col2 {
+  background-color: blueviolet;
+}
+
+.row9.col3 {
+  background-color: blueviolet;
+}
+
+/* player two's buildings*/
+
+.row2.col11 {
+  background-color: turquoise;
+}
+
+.row2.col10 {
+  background-color: turquoise;
+}
+
+.row3.col11 {
+  background-color: turquoise;
+}
