@@ -1,14 +1,9 @@
 import React from 'react';
-import Unit from './Unit.js';
 
-export default class Infantry extends Unit {
-    constructor(team, health, ammo) {
-        super(team, health, ammo);
-    }
-
+export default class Infantry extends React.Component {
     render() {
         return (
-            <img alt="" src="../../assets/units/infantry.png"/>
+            <img className="units--infantry" alt="" src="../../assets/units/infantry.png"/>
         );
     }
 }

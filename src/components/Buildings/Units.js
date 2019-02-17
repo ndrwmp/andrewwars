@@ -1,5 +1,5 @@
 import React from 'react';
-import Infantry from '../Units/Infantry';
+import { buyUnit } from '../../helper.js';
 
 export default class Units extends React.Component {
     constructor() {
@@ -15,7 +15,7 @@ export default class Units extends React.Component {
         return (
             <div className="units">
                 <button className="units--infantry" 
-                    // onClick={<Infantry team={1} health={100} ammo={100}/>}
+                    onClick={buyUnit(this.props.row, this.props.col, 'infantry')}
                 >
                     <span>Infantry, $200</span>
                     <img alt="" src="https://opengameart.org/sites/default/files/styles/medium/public/highschoolguy1.png"/>
