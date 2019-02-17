@@ -28,7 +28,7 @@ export default class Workshop extends React.Component {
                 <ReactModal ariaHideApp={false} isOpen={this.state.showModal}>
                     <button onClick={this.handleCloseModal}>X</button>
                     {/* <Units onClick={this.props.buyUnit}/> */}
-                    <Units />
+                    <Units row={this.props.row} col={this.props.col}/>
                 </ReactModal>
             </div>
         );

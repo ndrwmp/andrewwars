@@ -1,18 +1,30 @@
 import React from 'react';
+import Infantry from '../Units/Infantry';
 
 export default class Units extends React.Component {
+    constructor() {
+        super();
+        // this.handleBuyInfantry = this.handleBuyInfantry.bind(this);
+    }
+
+    // handleBuyInfantry() {
+    //     this.setState({ showModal: true});
+    // }
+
     render() {
         return (
             <div className="units">
-                <div className="infantry" onClick={console.log("buy infantry")}>
+                <button className="units--infantry" 
+                    // onClick={<Infantry team={1} health={100} ammo={100}/>}
+                >
                     <span>Infantry, $200</span>
                     <img alt="" src="https://opengameart.org/sites/default/files/styles/medium/public/highschoolguy1.png"/>
-                </div>
+                </button>
 
-                <div className="spaceship" onClick={console.log("buy spaceship")}>
+                <button className="units--spaceship" onClick={console.log("buy spaceship")}>
                     <span>Spaceship, $99999</span>
                     <img alt="" src="https://opengameart.org/sites/default/files/styles/medium/public/pitrizzo-SpaceShip-gpl3-opengameart-24x24-prev.png"/>
-                </div>
+                </button>
             </div>
         );
     }
