@@ -13,7 +13,7 @@ export default class Square extends React.Component {
                 className={"board--square terrain--" + terrain + ' ' + unitTag}
             >
                 {terrain === 'headquarters' ? <Headquarters /> : null }
-                {terrain === 'workshop' ? <Workshop onClick={this.props.onClick}/> : null }
+                {terrain === 'workshop' ? <Workshop row={this.props.row} col={this.props.col} handleClick={this.props.handleClick}/> : null }
                 
                 {unit === 'infantry' ? <Infantry /> : null}
             </button>

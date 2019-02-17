@@ -27,8 +27,7 @@ export default class Workshop extends React.Component {
                 <img alt="" onClick={this.handleOpenModal} src={require("../../assets/buildings/workshop.png")}></img>
                 <ReactModal ariaHideApp={false} isOpen={this.state.showModal}>
                     <button onClick={this.handleCloseModal}>X</button>
-                    {/* <Units onClick={this.props.buyUnit}/> */}
-                    <Units row={this.props.row} col={this.props.col} onClick={this.props.onClick}/>
+                    <Units row={this.props.row} col={this.props.col} handleClick={this.props.handleClick}/>
                 </ReactModal>
             </div>
         );

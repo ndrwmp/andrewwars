@@ -1,21 +1,11 @@
 import React from 'react';
-import { buyUnit } from '../../helper.js';
 
 export default class Units extends React.Component {
-    constructor() {
-        super();
-        // this.handleBuyInfantry = this.handleBuyInfantry.bind(this);
-    }
-
-    // handleBuyInfantry() {
-    //     this.setState({ showModal: true});
-    // }
-
     render() {
         return (
             <div className="units">
                 <button className="units--infantry" 
-                    onClick={buyUnit(this.props.row, this.props.col, 'infantry')}
+                    onClick={() => this.props.handleClick(this.props.row, this.props.col, "infantry")}
                 >
                     <span>Infantry, $200</span>
                     <img alt="" src="https://opengameart.org/sites/default/files/styles/medium/public/highschoolguy1.png"/>

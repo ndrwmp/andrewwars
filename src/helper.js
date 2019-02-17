@@ -1,16 +1,18 @@
-var board = null;
+const row = 10, col = 12;
 
-export default function setup(row, col, filler=null) {
-    // create 10x12 board, fill with null
-    board = new Array(row).fill(filler);
-    for(var r = 0; r < row; r++) {
-        board[r] = new Array(col).fill(filler);
-    }
-    return board;
+// create 10x12 board, fill with null
+var board = null;
+board = new Array(row).fill();
+for(var r = 0; r < row; r++) {
+    board[r] = new Array(col).fill();
 }
 
 // create terrain
-var terrain = setup(10, 12, 'land');
+var terrain = null;
+terrain = new Array(row).fill('land');
+for(var r = 0; r < row; r++) {
+    terrain[r] = new Array(col).fill('land');
+};
         
 // create island
 for(var i = 0; i < 10; i++) {
@@ -32,6 +34,7 @@ terrain[8][2] = 'workshop';
 
 export function buyUnit(row, col, unit) {
     board[row][col] = unit;
+    alert("bought infantry");
 }
 
 export function getUpdatedBoard() {
