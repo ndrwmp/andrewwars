@@ -8,11 +8,13 @@ export default class Board extends React.Component {
         this.state = {
             board: getUpdatedBoard(),
             selected: [null, null],
-            unitShopOpen: false
+            unitShopOpen: false,
+            modalIsOpen: false
         }
         this.handleBuyUnits = this.handleBuyUnits.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
-        this.isSelected = this.isSelected.bind(this);
+        this.aUnitIsSelected = this.aUnitIsSelected.bind(this);
+        this.setModalStatus = this.setModalStatus.bind(this);
     }
 
     renderSquare(row, col) {
@@ -22,23 +24,29 @@ export default class Board extends React.Component {
                 col={col}
                 unit={this.state.board[row][col]}
                 terrain={findTerrain(row, col)}
-                isSelected={this.isSelected}
+                aUnitIsSelected={this.aUnitIsSelected}
                 handleBuyUnits={this.handleBuyUnits}
                 handleSelect={this.handleSelect}
                 key={row+'x'+col}
+                setModalStatus={this.setModalStatus}
             />
         );
     }
 
-    isSelected(row, col) {
-        return (this.state.selected[0] === row && this.state.selected[1] === col);
+    setModalStatus(bool) {
+        this.setState({ modalIsOpen: bool});
+    }
+
+    aUnitIsSelected(row, col) {
+        return !!(this.state.selected[0] && this.state.selected[1]);
     }
 
     handleSelect(row, col) {
-        // if (findTerrain(row, col) === "workshop") {
-        //     console.log("not allowed to select units ontop of a workshop");
-        //     return;
-        // }
+        // if in unit buying screen, don't select anything
+        if (this.state.modalIsOpen === true) {
+            console.log("modal is open, don't select anything");
+            return;
+        }
 
         var unitIsSelected = !!(this.state.selected[0] && this.state.selected[1]);
         // console.log("unitIsSelected? " + unitIsSelected);
@@ -48,27 +56,51 @@ export default class Board extends React.Component {
 
         // if no unit is selected and no unit is on this square
         if (!unitIsSelected && !unitOnThisSquare)
-            console.log("no unit selected or on this square");
+            // console.log("no unit selected or on this square");
+            console.log("1 nothing to select");
             this.setState({
                 selected: [null, null]
             });
 
         // if no unit is selected and there is a unit on this square
         if (!unitIsSelected && unitOnThisSquare) {
-            console.log("no unit selected but there is a unit on this square");
+            // console.log("no unit selected but there is a unit on this square");
+            console.log("2 selected this unit at location ", row, ", ", col);
             this.setState({
                 selected: [row, col]
             });
         }
         
         // if a unit is selected and there is no unit on this square
-        if (unitIsSelected && !unitOnThisSquare)
-            console.log("unit selected and no unit on this square");
+        if (unitIsSelected && !unitOnThisSquare) {
+            console.log("3 moved selected unit to this square");
+            
+            // note old position, copy board for updating
+            var oldPosition = this.state.selected;
+            var unit = this.state.board[oldPosition[0]][oldPosition[1]];
+            const newBoard = this.state.board.slice().map(
+                function(row) {
+                    return row.slice();
+                }
+            );
+
+            // set unit to new position, clear old position
+            newBoard[row][col] = unit;
+            newBoard[oldPosition[0]][oldPosition[1]] = null;
+            // warning. this is asynchronous
+            this.setState({
+                board: newBoard,
+                selected: [null, null]
+            });
+        }
         
         // if a unit is selected and there is a unit on this square
         if (unitIsSelected && unitOnThisSquare)
             console.log("unit selected and unit on this square");
         
+        setTimeout(() => {
+            console.log("is a unit selected? ", this.aUnitIsSelected(row, col));
+        }, 500);
     }
 
     handleBuyUnits(row, col, unit) {

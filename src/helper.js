@@ -8,8 +8,6 @@ for(var r = 0; r < ROWS; r++) {
     board[r] = new Array(COLS).fill(null);
 }
 
-board[3][3] = "infantry";
-
 // create terrain
 var terrain = null;
 terrain = new Array(ROWS).fill('land');

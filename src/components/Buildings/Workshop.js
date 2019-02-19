@@ -14,11 +14,17 @@ export default class Workshop extends React.Component {
     }
 
     handleOpenModal() {
+        if(this.props.aUnitIsSelected(this.props.row, this.props.col)) {
+            console.log("didn't open buying units modal bc unit is being placed");
+            return;
+        }
         this.setState({ showModal: true});
+        this.props.setModalStatus(true);
     }
 
     handleCloseModal() {
         this.setState({ showModal: false});
+        this.props.setModalStatus(false);
     }
 
     render() {
