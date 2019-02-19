@@ -1,4 +1,6 @@
-.units--infantry {
-    background-color: black !important;
-    /* z-index: 1; */
+.unit--infantry {
+    content: "/src/assets/units/infantry.jpeg";
+    margin: 0 auto;
+    text-align: center;
+    z-index: 1;
 }

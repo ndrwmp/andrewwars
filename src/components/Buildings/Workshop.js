@@ -23,11 +23,15 @@ export default class Workshop extends React.Component {
 
     render() {
         return (
-            <div className="building--workshop">
+            <div className="building workshop">
                 <img alt="" onClick={this.handleOpenModal} src={require("../../assets/buildings/workshop.png")}></img>
                 <ReactModal ariaHideApp={false} isOpen={this.state.showModal}>
                     <button onClick={this.handleCloseModal}>X</button>
-                    <Units row={this.props.row} col={this.props.col} handleClick={this.props.handleClick}/>
+                    <Units
+                        row={this.props.row}
+                        col={this.props.col}
+                        handleBuyUnits={this.props.handleBuyUnits}
+                    />
                 </ReactModal>
             </div>
         );

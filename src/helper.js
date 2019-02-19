@@ -1,21 +1,24 @@
-const row = 10, col = 12;
+// define game board size
+export const ROWS = 10, COLS = 12;
 
 // create 10x12 board, fill with null
 var board = null;
-board = new Array(row).fill();
-for(var r = 0; r < row; r++) {
-    board[r] = new Array(col).fill();
+board = new Array(ROWS).fill(null);
+for(var r = 0; r < ROWS; r++) {
+    board[r] = new Array(COLS).fill(null);
 }
+
+board[3][3] = "infantry";
 
 // create terrain
 var terrain = null;
-terrain = new Array(row).fill('land');
-for(var r = 0; r < row; r++) {
-    terrain[r] = new Array(col).fill('land');
+terrain = new Array(ROWS).fill('land');
+for(r = 0; r < ROWS; r++) {
+    terrain[r] = new Array(COLS).fill('land');
 };
         
 // create island
-for(var i = 0; i < 10; i++) {
+for(var i = 0; i < ROWS; i++) {
     terrain[0][i] = 'water';
     terrain[9][i] = 'water';
     terrain[i][0] = 'water';
