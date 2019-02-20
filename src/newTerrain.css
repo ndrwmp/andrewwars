@@ -17,3 +17,7 @@
 .board--square:hover {
     background-color: yellow !important;
 }
+
+.squareWithinRange {
+    background-color: red;
+}

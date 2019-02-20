@@ -1,6 +1,6 @@
 import React from 'react';
 import Square from './Square.js';
-import { COLS, findTerrain, getUpdatedBoard } from '../helper.js';
+import { COLS, findTerrain, getUpdatedBoard, squareWithinRange } from '../helper.js';
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -13,8 +13,9 @@ export default class Board extends React.Component {
         }
         this.handleBuyUnits = this.handleBuyUnits.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
-        this.aUnitIsSelected = this.aUnitIsSelected.bind(this);
+        this.selectedTag = this.selectedTag.bind(this);
         this.setModalStatus = this.setModalStatus.bind(this);
+        this.aUnitIsSelected = this.aUnitIsSelected.bind(this);
     }
 
     renderSquare(row, col) {
@@ -29,43 +30,53 @@ export default class Board extends React.Component {
                 handleSelect={this.handleSelect}
                 key={row+'x'+col}
                 setModalStatus={this.setModalStatus}
+                selectedTag={this.selectedTag(row, col)}
+                squareWithinRangeTag={this.squareWithinRangeTag(row, col, 2)}
             />
         );
+    }
+
+    squareWithinRangeTag(newRow, newCol, range) {
+        var withinRange = squareWithinRange(this.state.selected[0], this.state.selected[1], newRow, newCol, range);
+        var terrain = findTerrain(newRow, newCol);
+        var validTerrain = (terrain !== 'water');
+        return (withinRange && validTerrain) ? " squareWithinRange" : "";
+    }
+
+    aUnitIsSelected() {
+        return !(this.state.selected[0] === null);
     }
 
     setModalStatus(bool) {
         this.setState({ modalIsOpen: bool});
     }
 
-    aUnitIsSelected(row, col) {
-        return !!(this.state.selected[0] && this.state.selected[1]);
+    selectedTag(row, col) {
+        var correctRow = this.state.selected[0] === row;
+        var correctCol = this.state.selected[1] === col;
+        return ((correctRow && correctCol)) ? " selected" : "";
     }
 
     handleSelect(row, col) {
         // if in unit buying screen, don't select anything
-        if (this.state.modalIsOpen === true) {
-            console.log("modal is open, don't select anything");
+        if (this.state.modalIsOpen === true)
             return;
-        }
 
-        var unitIsSelected = !!(this.state.selected[0] && this.state.selected[1]);
-        // console.log("unitIsSelected? " + unitIsSelected);
-
+        var unitIsSelected = this.aUnitIsSelected();
         var unitOnThisSquare = !!this.state.board[row][col];
-        // console.log("unitOnThisSquare? " + unitOnThisSquare);
 
         // if no unit is selected and no unit is on this square
         if (!unitIsSelected && !unitOnThisSquare)
             // console.log("no unit selected or on this square");
-            console.log("1 nothing to select");
-            this.setState({
-                selected: [null, null]
-            });
+            console.log("MVMT 0");
+            // this.setState({
+            //     selected: [null, null]
+            // });
 
         // if no unit is selected and there is a unit on this square
         if (!unitIsSelected && unitOnThisSquare) {
             // console.log("no unit selected but there is a unit on this square");
-            console.log("2 selected this unit at location ", row, ", ", col);
+            console.log("MVMT 1");
             this.setState({
                 selected: [row, col]
             });
@@ -73,7 +84,11 @@ export default class Board extends React.Component {
         
         // if a unit is selected and there is no unit on this square
         if (unitIsSelected && !unitOnThisSquare) {
-            console.log("3 moved selected unit to this square");
+            if (!squareWithinRange(this.state.selected[0], this.state.selected[1], row, col, 3)) {
+                console.log("out of range. pick somewhere else");
+                return;
+            }
+            console.log("MVMT 2");
             
             // note old position, copy board for updating
             var oldPosition = this.state.selected;
@@ -96,11 +111,7 @@ export default class Board extends React.Component {
         
         // if a unit is selected and there is a unit on this square
         if (unitIsSelected && unitOnThisSquare)
-            console.log("unit selected and unit on this square");
-        
-        setTimeout(() => {
-            console.log("is a unit selected? ", this.aUnitIsSelected(row, col));
-        }, 500);
+            console.log("MVMT 3");
     }
 
     handleBuyUnits(row, col, unit) {

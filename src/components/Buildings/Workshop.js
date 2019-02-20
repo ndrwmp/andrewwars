@@ -14,7 +14,7 @@ export default class Workshop extends React.Component {
     }
 
     handleOpenModal() {
-        if(this.props.aUnitIsSelected(this.props.row, this.props.col)) {
+        if(this.props.aUnitIsSelected()) {
             console.log("didn't open buying units modal bc unit is being placed");
             return;
         }
@@ -25,6 +25,7 @@ export default class Workshop extends React.Component {
     handleCloseModal() {
         this.setState({ showModal: false});
         this.props.setModalStatus(false);
+        console.log("handle close modal");
     }
 
     render() {
@@ -37,6 +38,7 @@ export default class Workshop extends React.Component {
                         row={this.props.row}
                         col={this.props.col}
                         handleBuyUnits={this.props.handleBuyUnits}
+                        handleCloseModal={this.handleCloseModal}
                     />
                 </ReactModal>
             </div>

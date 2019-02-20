@@ -8,10 +8,10 @@ export default class Square extends React.Component {
     render() {
         var terrain = this.props.terrain;
         var unit = this.props.unit;
-        var className = "board--square terrain--" + terrain;
-        if (this.props.aUnitIsSelected(this.props.row, this.props.col))
-            className += " selected";
-        
+        var className = "board--square terrain--" + terrain + this.props.selectedTag + this.props.squareWithinRangeTag;
+        // if (this.props.aUnitIsSelected(this.props.row, this.props.col))
+            // className += " selected";
+
         return (
             <button 
                 className={className}
