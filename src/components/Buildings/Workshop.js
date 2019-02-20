@@ -25,7 +25,6 @@ export default class Workshop extends React.Component {
     handleCloseModal() {
         this.setState({ showModal: false});
         this.props.setModalStatus(false);
-        console.log("handle close modal");
     }
 
     render() {

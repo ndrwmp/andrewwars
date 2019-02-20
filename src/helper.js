@@ -58,10 +58,7 @@ export function findTerrain(row, col) {
 export function squareWithinRange(oldRow, oldCol, newRow, newCol, range) {
     if (!oldRow || !oldCol)
         return;
-    if (oldRow < 2 || oldCol < 2)
-        console.log(oldRow + ", " + oldCol + " | " + newRow + ", " + newCol);
     var rowDiff = Math.abs(oldRow - newRow);
     var colDiff = Math.abs(oldCol - newCol);
-    // console.log(rowDiff+colDiff <= range);
     return rowDiff+colDiff <= range;
 }

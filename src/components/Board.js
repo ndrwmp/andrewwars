@@ -84,7 +84,7 @@ export default class Board extends React.Component {
         
         // if a unit is selected and there is no unit on this square
         if (unitIsSelected && !unitOnThisSquare) {
-            if (!squareWithinRange(this.state.selected[0], this.state.selected[1], row, col, 3)) {
+            if (this.squareWithinRangeTag(row, col, 2) !== " squareWithinRange") {
                 console.log("out of range. pick somewhere else");
                 return;
             }
