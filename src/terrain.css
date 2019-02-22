@@ -1,51 +1,23 @@
-/* style the terrain */
-
-/* default color is land (green) */
-.board--square {
-  background-color: rgb(1, 190, 1);
+.terrain--workshop {
+    background-color: orange;
 }
 
-/* water */
-.row0 {
-  background-color: blue;
+.terrain--land {
+    background-color: green;
 }
 
-.row9 {
-  background-color: blue;
+.terrain--headquarters {
+    background-color: purple;
 }
 
-.col0 {
-  background-color: blue;
+.terrain--water {
+    background-color: blue;
 }
 
-.col11 {
-  background-color: blue;
+.board--square:hover {
+    background-color: yellow;
 }
 
-/* player one's buildings*/
-
-.row7.col1 {
-  background-color: blueviolet;
-}
-
-.row8.col1 {
-  background-color: blueviolet;
-}
-
-.row8.col2 {
-  background-color: blueviolet;
-}
-
-/* player two's buildings*/
-
-.row1.col10 {
-  background-color: turquoise;
-}
-
-.row1.col9 {
-  background-color: turquoise;
-}
-
-.row2.col10 {
-  background-color: turquoise;
+.squareWithinRange {
+    background-color: red;
 }

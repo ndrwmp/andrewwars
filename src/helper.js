@@ -50,11 +50,7 @@ export function findTerrain(row, col) {
 // given oldRow, oldCol, and newRow, newCol, and the movement range of the unit
 // find the difference between the oldRow and newRow, and the difference between the
 // oldCol and newCol. add those differences up, if they're <= the range of the unit
-// then the unit can move there. add a "within-range" class to those squares
-// similarly to how you added a "selected" tag to the squares
-// maybe do the logic for determining square classNames within a helper function
-// or witihn hte Board component, but that's optional.
-
+// then the unit can move there. 
 export function squareWithinRange(oldRow, oldCol, newRow, newCol, range) {
     if (!oldRow || !oldCol)
         return;
@@ -62,3 +58,9 @@ export function squareWithinRange(oldRow, oldCol, newRow, newCol, range) {
     var colDiff = Math.abs(oldCol - newCol);
     return rowDiff+colDiff <= range;
 }
+
+// add objects for each unit type - Infantry, Drone so far.
+// variables: range, health, ammo
+
+// add objects for each player
+// variables: team, color, amountOfMoney, name

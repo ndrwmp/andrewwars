@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Board from './components/Board.js';
 import './index.css';
-// import './terrain.css';
-import './newTerrain.css';
+import './terrain.css';
 import './buildings.css';
 import './units.css';
   

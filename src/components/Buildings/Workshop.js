@@ -18,6 +18,12 @@ export default class Workshop extends React.Component {
             console.log("didn't open buying units modal bc unit is being placed");
             return;
         }
+
+        if (this.props.aUnitIsOnThisSquare(this.props.row, this.props.col)) {
+            console.log("a unit is on this square");
+            return;
+        }
+
         this.setState({ showModal: true});
         this.props.setModalStatus(true);
     }

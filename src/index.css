@@ -8,13 +8,16 @@
 .board--row {
   display: flex;
   flex-direction: row;
+  width: 24rem;
   /* width: 100%; */
 }
   
 .board--square {
   border: 1px solid #999;
-  height: 1.5rem;
+  height: 2rem;
   width: 2rem;
+  /* height: 100%; */
+  /* width: 100%; */
   display: flex;
   text-align: center;
 }

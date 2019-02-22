@@ -16,6 +16,7 @@ export default class Board extends React.Component {
         this.selectedTag = this.selectedTag.bind(this);
         this.setModalStatus = this.setModalStatus.bind(this);
         this.aUnitIsSelected = this.aUnitIsSelected.bind(this);
+        this.aUnitIsOnThisSquare = this.aUnitIsOnThisSquare.bind(this);
     }
 
     renderSquare(row, col) {
@@ -32,6 +33,7 @@ export default class Board extends React.Component {
                 setModalStatus={this.setModalStatus}
                 selectedTag={this.selectedTag(row, col)}
                 squareWithinRangeTag={this.squareWithinRangeTag(row, col, 2)}
+                aUnitIsOnThisSquare={this.aUnitIsOnThisSquare}
             />
         );
     }
@@ -45,6 +47,10 @@ export default class Board extends React.Component {
 
     aUnitIsSelected() {
         return !(this.state.selected[0] === null);
+    }
+
+    aUnitIsOnThisSquare(row, col) {
+        return !!this.state.board[row][col];
     }
 
     setModalStatus(bool) {

@@ -26,6 +26,7 @@ export default class Square extends React.Component {
                         aUnitIsSelected={this.props.aUnitIsSelected}
                         handleBuyUnits={this.props.handleBuyUnits}
                         setModalStatus={this.props.setModalStatus}
+                        aUnitIsOnThisSquare={this.props.aUnitIsOnThisSquare}
                     /> : null }
                 
                 {unit === 'infantry' ? <Infantry /> : null}
