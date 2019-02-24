@@ -1,5 +1,7 @@
 import React from 'react';
 import Square from './Square.js';
+// import Unit from './Units/Unit.js';
+import { Unit, Infantry, Drone } from '../units.js';
 import { COLS, findTerrain, getUpdatedBoard, squareWithinRange } from '../helper.js';
 
 export default class Board extends React.Component {
@@ -9,7 +11,8 @@ export default class Board extends React.Component {
             board: getUpdatedBoard(),
             selected: [null, null],
             unitShopOpen: false,
-            modalIsOpen: false
+            modalIsOpen: false,
+            selectedUnit: null
         }
         this.handleBuyUnits = this.handleBuyUnits.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
@@ -17,6 +20,7 @@ export default class Board extends React.Component {
         this.setModalStatus = this.setModalStatus.bind(this);
         this.aUnitIsSelected = this.aUnitIsSelected.bind(this);
         this.aUnitIsOnThisSquare = this.aUnitIsOnThisSquare.bind(this);
+        this.setSelectedUnitType = this.setSelectedUnitType.bind(this);
     }
 
     renderSquare(row, col) {
@@ -25,6 +29,7 @@ export default class Board extends React.Component {
                 row={row}
                 col={col}
                 unit={this.state.board[row][col]}
+                setSelectedUnitType={this.setSelectedUnitType}
                 terrain={findTerrain(row, col)}
                 aUnitIsSelected={this.aUnitIsSelected}
                 handleBuyUnits={this.handleBuyUnits}
@@ -32,14 +37,20 @@ export default class Board extends React.Component {
                 key={row+'x'+col}
                 setModalStatus={this.setModalStatus}
                 selectedTag={this.selectedTag(row, col)}
-                squareWithinRangeTag={this.squareWithinRangeTag(row, col, 2)}
+                squareWithinRangeTag={this.squareWithinRangeTag(row, col)}
                 aUnitIsOnThisSquare={this.aUnitIsOnThisSquare}
             />
         );
     }
 
-    squareWithinRangeTag(newRow, newCol, range) {
-        var withinRange = squareWithinRange(this.state.selected[0], this.state.selected[1], newRow, newCol, range);
+    setSelectedUnitType(unitType) {
+        this.setState({
+            selectedUnitType: unitType
+        });
+    }
+
+    squareWithinRangeTag(newRow, newCol) {
+        var withinRange = squareWithinRange(this.state.selected[0], this.state.selected[1], newRow, newCol);
         var terrain = findTerrain(newRow, newCol);
         var validTerrain = (terrain !== 'water');
         return (withinRange && validTerrain) ? " squareWithinRange" : "";
@@ -70,6 +81,7 @@ export default class Board extends React.Component {
 
         var unitIsSelected = this.aUnitIsSelected();
         var unitOnThisSquare = !!this.state.board[row][col];
+        var unitType = unitIsSelected ? this.state.board[this.state.selected[0]][this.state.selected[1]].type : null;
 
         // if no unit is selected and no unit is on this square
         if (!unitIsSelected && !unitOnThisSquare)
@@ -90,7 +102,7 @@ export default class Board extends React.Component {
         
         // if a unit is selected and there is no unit on this square
         if (unitIsSelected && !unitOnThisSquare) {
-            if (this.squareWithinRangeTag(row, col, 2) !== " squareWithinRange") {
+            if (this.squareWithinRangeTag(row, col, 3) !== " squareWithinRange") {
                 console.log("out of range. pick somewhere else");
                 return;
             }
@@ -134,12 +146,15 @@ export default class Board extends React.Component {
         );
 
         // create the correct unit
+        switch(unit) {
+            case 'Infantry': unit = new Infantry(1); break;
+            case 'Drone': unit = new Drone(1); break;
+        }
         newBoard[row][col] = unit;
+        this.setState({selectedUnit: unit});
 
         // update the board
         this.setState({ board: newBoard });
-
-        console.log(unit + " purchased");
     }
 
     renderRow(row) {
@@ -147,6 +162,7 @@ export default class Board extends React.Component {
         for (var col = 0; col < COLS; col++) {
             renderedRow.push(this.renderSquare(row, col));
         }
+        
         return (
             <div className="board--row">
                 {renderedRow}

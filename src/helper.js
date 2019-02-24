@@ -1,3 +1,7 @@
+
+// import Unit from './components/Units/Unit.js';
+import { Unit } from './units.js';
+
 // define game board size
 export const ROWS = 10, COLS = 12;
 
@@ -34,8 +38,18 @@ terrain[7][1] = 'workshop';
 terrain[8][2] = 'workshop';
 
 export function buyUnit(row, col, unit) {
-    board[row][col] = unit;
-    alert("bought infantry");
+    switch(unit) {
+        case 'Infantry':
+            board[row][col] = new Unit(1, 'Infantry', 100, 100, 3);
+            break;
+        case 'Drone':
+            board[row][col] = new Unit(1, 'Drone', 100, 100, 5);
+            break;
+        default:
+            console.log("default switch buyUnit case");
+            break;
+    }
+    console.log("team=", board[row][col].getTeam());
 }
 
 export function getUpdatedBoard() {
@@ -54,13 +68,10 @@ export function findTerrain(row, col) {
 export function squareWithinRange(oldRow, oldCol, newRow, newCol, range) {
     if (!oldRow || !oldCol)
         return;
+    range = 3;
     var rowDiff = Math.abs(oldRow - newRow);
     var colDiff = Math.abs(oldCol - newCol);
     return rowDiff+colDiff <= range;
 }
 
-// add objects for each unit type - Infantry, Drone so far.
-// variables: range, health, ammo
-
-// add objects for each player
-// variables: team, color, amountOfMoney, name
+// var unit = new Unit(1, "Infantry", 100, 100, 3);

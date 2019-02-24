@@ -11,14 +11,14 @@ export default class Units extends React.Component {
             <div className="units">
                 <button
                     className="units--infantry" 
-                    onClick={() => this.handleBuyUnit("infantry")}
+                    onClick={() => this.handleBuyUnit("Infantry")}
                 >
                     <span>Infantry, $200</span>
                 </button>
 
                 <button 
                     className="units--spaceship"
-                    onClick={() => this.handleBuyUnit("drone")}
+                    onClick={() => this.handleBuyUnit("Drone")}
                 >
                     <span>Drone, $500</span>
                 </button>

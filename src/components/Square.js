@@ -1,8 +1,7 @@
 import React from 'react';
 import Headquarters from './Buildings/Headquarters.js';
 import Workshop from './Buildings/Workshop.js';
-import Infantry from './Units/Infantry.js';
-import Drone from './Units/Drone.js';
+import Unit from './Units/Unit.js';
 
 export default class Square extends React.Component {
     render() {
@@ -24,13 +23,14 @@ export default class Square extends React.Component {
                         row={this.props.row}
                         col={this.props.col}
                         aUnitIsSelected={this.props.aUnitIsSelected}
+                        setSelectedUnitType={this.props.setSelectedUnitType}
                         handleBuyUnits={this.props.handleBuyUnits}
                         setModalStatus={this.props.setModalStatus}
                         aUnitIsOnThisSquare={this.props.aUnitIsOnThisSquare}
                     /> : null }
                 
-                {unit === 'infantry' ? <Infantry /> : null}
-                {unit === 'drone' ? <Drone /> : null}
+                {unit ? <Unit team={unit.team} type={unit.type} /> : null}
+                {/* {unit && unit} */}
             </button>
         );
     }
